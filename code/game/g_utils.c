@@ -526,9 +526,17 @@ void G_KillBox (gentity_t *ent) {
 
 	for (i=0 ; i<num ; i++) {
 		hit = &g_entities[touch[i]];
+//qlone - freezetag
+		if ( !g_freezeTag.integer ) {
+//qlone - freezetag
 		if ( !hit->client ) {
 			continue;
 		}
+//qlone - freezetag
+		} else {
+			if ( !hit->client && !is_body_freeze( hit ) ) continue;
+		}
+//qlone - freezetag
 
 		// nail it
 		G_Damage ( hit, ent, ent, NULL, NULL,

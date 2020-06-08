@@ -357,6 +357,11 @@ void BotSetTeamStatus(bot_state_t *bs) {
 				teamtask = TEAMTASK_ESCORT;
 			}
 			else {
+				//qlone - freezetag
+				if ( g_freezeTag.integer && bs->formation_dist == 70 )
+					teamtask = TEAMTASK_ESCORT;
+				else
+				//qlone - freezetag
 				teamtask = TEAMTASK_FOLLOW;
 			}
 			break;
@@ -470,6 +475,7 @@ void BotRefuseOrder(bot_state_t *bs) {
 	}
 }
 
+
 /*
 ==================
 BotCTFSeekGoals
@@ -521,13 +527,23 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 		return;
 	}
 	// if the bot decided to follow someone
-	if ( bs->ltgtype == LTG_TEAMACCOMPANY && !bs->ordered ) {
-		// if the team mate being accompanied no longer carries the flag
-		BotEntityInfo(bs->teammate, &entinfo);
-		if (!EntityCarriesFlag(&entinfo)) {
-			bs->ltgtype = 0;
+//qlone - freezetag
+	if ( g_freezeTag.integer ) {
+		BotTeamSeekGoals( bs );
+		if ( bs->ltgtype == LTG_TEAMACCOMPANY ) {
+			return;
 		}
 	}
+	else {
+//qlone - freezetag
+		if ( bs->ltgtype == LTG_TEAMACCOMPANY && !bs->ordered ) {
+			// if the team mate being accompanied no longer carries the flag
+			BotEntityInfo(bs->teammate, &entinfo);
+			if (!EntityCarriesFlag(&entinfo)) {
+				bs->ltgtype = 0;
+			}
+		}
+	} //qlone - freezetag
 	//
 	if (BotTeam(bs) == TEAM_RED) flagstatus = bs->redflagstatus * 2 + bs->blueflagstatus;
 	else flagstatus = bs->blueflagstatus * 2 + bs->redflagstatus;
@@ -1354,6 +1370,11 @@ void BotTeamGoals(bot_state_t *bs, int retreat) {
 			BotHarvesterSeekGoals(bs);
 		}
 #endif
+//qlone - freezetag
+		else if ( g_freezeTag.integer && gametype == GT_TEAM ) {
+			BotTeamSeekGoals( bs );
+		}
+//qlone - freezetag
 	}
 	// reset the order time which is used to see if
 	// we decided to refuse an order
@@ -1388,7 +1409,11 @@ char *ClientName( int client, char *name, int size ) {
 	char buf[ MAX_INFO_STRING ];
 
 	if ( (unsigned) client >= MAX_CLIENTS ) {
-		BotAI_Print( PRT_ERROR, "ClientName: client out of range\n" );
+//qlone - freezetag
+		if ( !g_freezeTag.integer ) {
+//qlone - freezetag
+			BotAI_Print( PRT_ERROR, "ClientName: client out of range\n" );
+		} //qlone - freezetag
 		Q_strncpyz( name, "[client out of range]", size );
 		return name;
 	}
@@ -3070,6 +3095,11 @@ int BotTeamFlagCarrierVisible(bot_state_t *bs) {
 	int i;
 	float vis;
 	aas_entityinfo_t entinfo;
+
+//qlone - freezetag
+	if ( g_freezeTag.integer && gametype == GT_CTF )
+		return -1;
+//qlone - freezetag
 
 	for (i = 0; i < level.maxclients; i++) {
 		if (i == bs->client)

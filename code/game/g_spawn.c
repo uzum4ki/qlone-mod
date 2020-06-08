@@ -269,6 +269,12 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	// check item spawn functions
 	for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
 		if ( !strcmp(item->classname, ent->classname) ) {
+//qlone - freezetag
+			if ( g_freezeTag.integer )
+				locationSpawn( ent, item );
+			if ( WeaponDisabled( item ) )
+				return qfalse;
+//qlone - freezetag
 			G_SpawnItem( ent, item );
 			return qtrue;
 		}
@@ -409,10 +415,21 @@ void G_SpawnGEntityFromSpawnVars( void ) {
 	// check for "notteam" flag (GT_FFA, GT_TOURNAMENT, GT_SINGLE_PLAYER)
 	if ( g_gametype.integer >= GT_TEAM ) {
 		G_SpawnInt( "notteam", "0", &i );
+//qlone - freezetag
+		if ( !g_freezeTag.integer ) {
+//qlone - freezetag
 		if ( i ) {
 			G_FreeEntity( ent );
 			return;
 		}
+//qlone - freezetag
+		} else {
+			if ( i && !( ent->classname && !Q_stricmp( ent->classname, "info_player_deathmatch" ) ) ) {
+				G_FreeEntity( ent );
+				return;
+			}
+		}
+//qlone - freezetag
 	} else {
 		G_SpawnInt( "notfree", "0", &i );
 		if ( i ) {
@@ -573,6 +590,11 @@ void SP_worldspawn( void ) {
 	G_SpawnString( "enableDust", "0", &s );
 	trap_Cvar_Set( "g_enableDust", s );
 
+//qlone - freezetag
+	if ( g_freezeTag.integer )
+		G_SpawnString( "enableBreath", "1", &s );
+	else
+//qlone - freezetag
 	G_SpawnString( "enableBreath", "0", &s );
 	trap_Cvar_Set( "g_enableBreath", s );
 

@@ -123,6 +123,10 @@ int Pickup_Powerup( gentity_t *ent, gentity_t *other ) {
 			continue;
 		}
 
+//qlone - freezetag
+		if ( g_freezeTag.integer && is_spectator( other->client ) ) continue;
+//qlone - freezetag
+
 		// if too far away, no sound
 		VectorSubtract( ent->s.pos.trBase, client->ps.origin, delta );
 		len = VectorNormalize( delta );
@@ -474,6 +478,10 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		return;
 	if (other->health < 1)
 		return;		// dead people can't pickup
+//qlone - freezetag
+	if ( g_freezeTag.integer && other->freezeState )
+		return;
+//qlone - freezetag
 
 	// the same pickup rules are used for client side and server side
 	if ( !BG_CanItemBeGrabbed( g_gametype.integer, &ent->s, &other->client->ps ) ) {
@@ -599,6 +607,11 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		ent->think = 0;
 	} else {
 		ent->nextthink = level.time + respawn;
+//qlone - freezetag
+		if ( g_freezeTag.integer && ent->item->giType == IT_WEAPON && g_dmflags.integer & 256 && !ent->freeAfterEvent ) {
+			ent->nextthink = level.time;
+		}
+//qlone - freezetag
 		ent->think = RespawnItem;
 	}
 
@@ -716,6 +729,12 @@ void FinishSpawningItem( gentity_t *ent ) {
 	ent->s.modelindex = ent->item - bg_itemlist;		// store item number in modelindex
 	ent->s.modelindex2 = 0; // zero indicates this isn't a dropped item
 
+//qlone - freezetag
+	if ( g_freezeTag.integer && g_dmflags.integer & 256 ) {
+		ent->s.modelindex2 = 255;
+	}
+//qlone - freezetag
+
 	ent->r.contents = CONTENTS_TRIGGER;
 	ent->touch = Touch_Item;
 	// using an item causes it to respawn
@@ -759,6 +778,12 @@ void FinishSpawningItem( gentity_t *ent ) {
 
 
 qboolean	itemRegistered[MAX_ITEMS];
+//qlone - freezetag
+qboolean Registered( gitem_t *item ) {
+	return ( item && itemRegistered[ item - bg_itemlist ] );
+}
+//qlone - freezetag
+
 
 /*
 ==================
@@ -861,6 +886,9 @@ void ClearRegisteredItems( void ) {
 		RegisterItem( BG_FindItem( "Blue Cube" ) );
 	}
 #endif
+//qlone - freezetag
+	if ( g_freezeTag.integer ) RegisterWeapon();
+//qlone - freezetag
 }
 
 /*
@@ -988,6 +1016,12 @@ void G_BounceItem( gentity_t *ent, trace_t *trace ) {
 		SnapVector( trace->endpos );
 		G_SetOrigin( ent, trace->endpos );
 		ent->s.groundEntityNum = trace->entityNum;
+//qlone - freezetag
+		if ( g_freezeTag.integer && ent->pain_debounce_time < level.time - 700 ) {
+			ent->pain_debounce_time = level.time;
+			G_AddEvent( ent, EV_FALL_SHORT, 0 );
+		}
+//qlone - freezetag
 		return;
 	}
 
@@ -1032,6 +1066,11 @@ void G_RunItem( gentity_t *ent ) {
 	} else {
 		mask = MASK_PLAYERSOLID & ~CONTENTS_BODY;//MASK_SOLID;
 	}
+//qlone - freezetag
+        if ( g_freezeTag.integer && is_body_freeze( ent ) )
+                trap_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, ent->s.number, mask );
+        else
+//qlone - freezetag
 	trap_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, 
 		ent->r.ownerNum, mask );
 
@@ -1056,6 +1095,14 @@ void G_RunItem( gentity_t *ent ) {
 		if (ent->item && ent->item->giType == IT_TEAM) {
 			Team_FreeEntity(ent);
 		} else {
+//qlone - freezetag
+			if ( g_freezeTag.integer && is_body( ent ) ) {
+				if ( level.time - ent->timestamp > 10000 ) {
+					Body_free( ent );
+				}
+				return;
+			}
+//qlone - freezetag
 			G_FreeEntity( ent );
 		}
 		return;

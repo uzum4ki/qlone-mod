@@ -4,6 +4,7 @@ ai_chat
 ai_cmd
 ai_dmnet
 ai_dmq3
+ai_freeze
 ai_main
 ai_team
 ai_vcmd
@@ -17,6 +18,7 @@ g_bot
 g_client
 g_cmds
 g_combat
+g_freeze
 g_items
 g_mem
 g_misc

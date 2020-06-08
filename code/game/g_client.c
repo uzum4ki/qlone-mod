@@ -440,6 +440,10 @@ respawn
 void respawn( gentity_t *ent ) {
 	gentity_t	*tent;
 
+//qlone - freezetag
+	if ( g_freezeTag.integer && Set_spectator( ent ) ) return;
+//qlone - freezetag
+
 	if ( ent->health <= 0 )
 		CopyToBodyQue( ent );
 
@@ -823,6 +827,15 @@ const char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 
 	G_ReadClientSessionData( client );
 
+//qlone -  freezetag
+	if (g_freezeTag.integer) {
+		if ( g_gametype.integer != GT_TOURNAMENT )
+			client->sess.wins = 0;
+		ent->freezeState = qfalse;
+		ent->readyBegin = qfalse;
+	}
+//qlone -  freezetag
+
 	if( isBot ) {
 		if( !G_BotConnect( clientNum, !firstTime ) ) {
 			return "BotConnectfailed";
@@ -1110,8 +1123,15 @@ void ClientSpawn(gentity_t *ent) {
 	SetClientViewAngle( ent, spawn_angles );
 
 	// entity should be unlinked before calling G_KillBox()	
-	if ( !isSpectator )
+//qlone - freezetag
+	//if ( !isSpectator )
+	if ( !is_spectator( client ) ) {
+//qlone - freezetag
 		G_KillBox( ent );
+//qlone - freezetag
+		SpawnWeapon( client );
+	}
+//qlone - freezetag
 
 	// force the base weapon up
 	client->ps.weapon = WP_MACHINEGUN;
@@ -1132,8 +1152,14 @@ void ClientSpawn(gentity_t *ent) {
 	if ( level.intermissiontime ) {
 		MoveClientToIntermission( ent );
 	} else {
-		if ( !isSpectator )
+//qlone - freezetag
+		//if ( !isSpectator )
+		if ( !is_spectator( client ) )
+//qlone - freezetag
 			trap_LinkEntity( ent );
+//qlone - freezetag
+		if ( g_freezeTag.integer && !( g_dmflags.integer & 1024 ) )
+//qlone - freezetag
 		// fire the targets of the spawn point
 		G_UseTargets( spawnPoint, ent );
 
@@ -1146,6 +1172,19 @@ void ClientSpawn(gentity_t *ent) {
 				break;
 			}
 		}
+//qlone - freezetag
+                if ( g_freezeTag.integer && ( client->ps.stats[ STAT_WEAPONS ] & ( 1 << WP_ROCKET_LAUNCHER ) ) ) {
+                        client->ps.weapon = WP_ROCKET_LAUNCHER;
+                }
+
+		if ( g_startArmor.integer > 0 ) {
+			client->ps.stats[ STAT_ARMOR ] += g_startArmor.integer;
+			if ( client->ps.stats[ STAT_ARMOR ] > client->ps.stats[ STAT_MAX_HEALTH ] * 2 ) {
+				client->ps.stats[ STAT_ARMOR ] = client->ps.stats[ STAT_MAX_HEALTH ] * 2;
+			}
+		}
+//qlone - freezetag
+
 	}
 
 	// run a client frame to drop exactly to the floor,
@@ -1193,7 +1232,9 @@ void ClientDisconnect( int clientNum ) {
 
 	// stop any following clients
 	for ( i = 0 ; i < level.maxclients ; i++ ) {
-		if ( level.clients[i].sess.sessionTeam == TEAM_SPECTATOR
+//qlone - freezetag
+		if ( /*level.clients[i].sess.sessionTeam == TEAM_SPECTATOR*/ is_spectator( &level.clients[ i ] )
+//qlone - freezetag
 			&& level.clients[i].sess.spectatorState == SPECTATOR_FOLLOW
 			&& level.clients[i].sess.spectatorClient == clientNum ) {
 			StopFollowing( &g_entities[i], qtrue );
@@ -1202,7 +1243,9 @@ void ClientDisconnect( int clientNum ) {
 
 	// send effect if they were completely connected
 	if ( ent->client->pers.connected == CON_CONNECTED 
-		&& ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
+//qlone - freezetag
+		&& /*ent->client->sess.sessionTeam != TEAM_SPECTATOR*/ !is_spectator( ent->client ) ) {
+//qlone - freezetag
 		tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
 		tent->s.clientNum = ent->s.clientNum;
 

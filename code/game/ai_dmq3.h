@@ -156,6 +156,8 @@ int BotPointAreaNum(vec3_t origin);
 //
 void BotMapScripts(bot_state_t *bs);
 
+void BotTeamSeekGoals( bot_state_t *bs ); //qlone - freezetag
+
 //ctf flags
 #define CTF_FLAG_NONE		0
 #define CTF_FLAG_RED		1

@@ -1026,10 +1026,21 @@ qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 		Com_Error( ERR_DROP, "BG_CanItemBeGrabbed: index out of range" );
 	}
 
+//qlone - freezetag
+	if ( ent->modelindex2 == 1 && ent->otherEntityNum == ps->clientNum + 1 ) {
+		return qfalse;
+	}
+//qlone - freezetag
+
 	item = &bg_itemlist[ent->modelindex];
 
 	switch( item->giType ) {
 	case IT_WEAPON:
+//qlone - freezetag
+		if ( ent->modelindex2 == 255 && ps->stats[ STAT_WEAPONS ] & ( 1 << item->giTag ) ) {
+			return qfalse;
+		}
+//qlone - freezetag
 		return qtrue;	// weapons are always picked up
 
 	case IT_AMMO:

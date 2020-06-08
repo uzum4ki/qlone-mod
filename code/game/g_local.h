@@ -9,7 +9,10 @@
 //==================================================================
 
 // the "gameversion" client command will print this plus compile date
-#define	GAMEVERSION	"baseq3"
+//qlone
+//#define	GAMEVERSION	"baseq3"
+#define	GAMEVERSION	"qlone"
+//qlone
 
 #define BODY_QUEUE_SIZE		8
 
@@ -155,6 +158,11 @@ struct gentity_s {
 	float		random;
 
 	gitem_t		*item;			// for bonus items
+
+	//qlone - freezetag
+	qboolean	freezeState;
+	qboolean	readyBegin;
+	//qlone - freezetag
 
 	// team for spawn spot
 	team_t		fteam;
@@ -469,6 +477,7 @@ void G_RevertVote( gclient_t *client );
 //
 // g_items.c
 //
+qboolean Registered( gitem_t *item ); //qlone - freezetag
 void G_CheckTeamItems( void );
 void G_RunItem( gentity_t *ent );
 void RespawnItem( gentity_t *ent );
@@ -748,6 +757,34 @@ void G_LoadMap( const char *map );
 qboolean G_MapExist( const char *map );
 
 
+//qlone - freezetag
+// g_freeze.c
+qboolean is_spectator( gclient_t *client );
+qboolean Set_spectator( gentity_t *ent );
+qboolean Set_Client( gentity_t *ent );
+void respawnSpectator( gentity_t *ent );
+void Persistant_spectator( gentity_t *ent, gclient_t *cl );
+void Body_free( gentity_t *self );
+qboolean DamageBody( gentity_t *targ, gentity_t *attacker, vec3_t dir, int mod, int knockback );
+qboolean is_body( gentity_t *ent );
+qboolean is_body_freeze( gentity_t *ent );
+void player_freeze( gentity_t *self, gentity_t *attacker, int mod );
+qboolean readyCheck( void );
+void team_wins( int team );
+void CheckDelay( void );
+void locationSpawn( gentity_t *ent, gitem_t *item );
+void Hook_Fire( gentity_t *ent );
+void Cmd_Drop_f( gentity_t *ent );
+void Cmd_Ready_f( gentity_t *ent );
+//void voteInvalid( gentity_t *ent );
+//qboolean voteCheck( void );
+qboolean WeaponDisabled( gitem_t *item );
+void RegisterWeapon( void );
+void SpawnWeapon( gclient_t *client );
+int InvulnerabilityEffect( gentity_t *targ, vec3_t dir, vec3_t point, vec3_t impactpoint, vec3_t bouncedir );
+//qlone - freezetag
+
+
 #include "g_team.h" // teamplay specific stuff
 
 extern	level_locals_t	level;
@@ -760,7 +797,7 @@ extern	vmCvar_t	g_mapname;
 extern	vmCvar_t	sv_fps;
 extern	vmCvar_t	g_dedicated;
 extern	vmCvar_t	g_cheats;
-//extern vmCvar_t	g_maxclients;			// allow this many total, including spectators
+extern	vmCvar_t	g_maxclients;			// allow this many total, including spectators
 extern	vmCvar_t	g_maxGameClients;		// allow this many active
 extern	vmCvar_t	g_restarted;
 
@@ -808,6 +845,15 @@ extern	vmCvar_t	g_enableDust;
 extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
+//qlone - freezetag
+extern	vmCvar_t	g_doReady;
+extern	vmCvar_t	g_freezeTag;
+extern	vmCvar_t	g_grapple;
+extern	vmCvar_t	g_startArmor;
+extern	vmCvar_t	g_votelimit;
+extern	vmCvar_t	g_wpflags;
+extern	vmCvar_t	g_weaponlimit;
+//qlone - freezetag
 
 void	trap_Print( const char *text );
 void	trap_Error( const char *text );

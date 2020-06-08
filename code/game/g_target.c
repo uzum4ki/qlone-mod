@@ -175,6 +175,11 @@ void Use_Target_Speaker (gentity_t *ent, gentity_t *other, gentity_t *activator)
 		} else {
 			G_AddEvent( ent, EV_GENERAL_SOUND, ent->noise_index );
 		}
+//qlone - freezetag
+		if ( g_freezeTag.integer && activator->client && activator->client->hook ) {
+			Weapon_HookFree( activator->client->hook );
+		}
+//qlone - freezetag
 	}
 }
 
@@ -411,9 +416,23 @@ static void target_location_linkup(gentity_t *ent)
 {
 	int i;
 	int n;
+	qboolean modified = qfalse; //qlone - freezetag
 
 	if (level.locationLinked) 
 		return;
+
+//qlone - freezetag
+	if ( g_freezeTag.integer ) {
+		for ( i = 0, ent = g_entities; i < level.num_entities; i++, ent++ ) {
+			if ( ent->classname && !Q_stricmp( ent->classname, "target_location" ) ) {
+				if ( ent->count != 255 ) {
+					modified = qtrue;
+					break;
+				}
+			}
+		}
+	}
+//qlone - freezetag
 
 	level.locationLinked = qtrue;
 
@@ -425,6 +444,19 @@ static void target_location_linkup(gentity_t *ent)
 			i < level.num_entities;
 			i++, ent++) {
 		if (ent->classname && !Q_stricmp(ent->classname, "target_location")) {
+//qlone - freezetag
+			if ( g_freezeTag.integer ) {
+				if ( ent->count == 255 ) {
+					if ( modified ) {
+						ent->think = G_FreeEntity;
+						ent->nextthink = level.time;
+
+						continue;
+					}
+					ent->count = 0;
+				}
+			}
+//qlone - freezetag
 			// lets overload some variables!
 			ent->health = n; // use for location marking
 			trap_SetConfigstring( CS_LOCATIONS + n, ent->message );

@@ -259,7 +259,9 @@ void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace
 	}
 	// Spectators only?
 	if ( ( self->spawnflags & 1 ) && 
-		other->client->sess.sessionTeam != TEAM_SPECTATOR ) {
+//qlone - freezetag
+		/*other->client->sess.sessionTeam != TEAM_SPECTATOR*/ !is_spectator( other->client ) ) {
+//qlone - freezetag
 		return;
 	}
 

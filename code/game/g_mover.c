@@ -785,6 +785,12 @@ void Blocked_Door( gentity_t *ent, gentity_t *other ) {
 			Team_DroppedFlagThink( other );
 			return;
 		}
+//qlone - freezetag
+		if ( g_freezeTag.integer && is_body( other ) ) {
+			Body_free( other );
+			return;
+		}
+//qlone - freezetag
 		G_TempEntity( other->s.origin, EV_ITEM_POP );
 		G_FreeEntity( other );
 		return;
@@ -838,7 +844,9 @@ Touch_DoorTrigger
 ================
 */
 void Touch_DoorTrigger( gentity_t *ent, gentity_t *other, trace_t *trace ) {
-	if ( other->client && other->client->sess.sessionTeam == TEAM_SPECTATOR ) {
+//qlone - freezetag
+	if ( other->client && /*other->client->sess.sessionTeam == TEAM_SPECTATOR*/ is_spectator( other->client ) ) {
+//qlone - freezetag
 		// if the door is not open and not opening
 		if ( ent->parent->moverState != MOVER_1TO2 &&
 			ent->parent->moverState != MOVER_POS2) {

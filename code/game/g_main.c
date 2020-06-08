@@ -76,7 +76,21 @@ vmCvar_t	g_singlePlayer;
 vmCvar_t	g_enableDust;
 vmCvar_t	g_enableBreath;
 vmCvar_t	g_proxMineTimeout;
+//qlone - freezetag
+#else
+vmCvar_t	g_enableBreath;
+//qlone - freezetag
 #endif
+
+//qlone - freezetag
+vmCvar_t	g_doReady;
+vmCvar_t	g_freezeTag;
+vmCvar_t	g_grapple;
+vmCvar_t	g_startArmor;
+vmCvar_t	g_votelimit;
+vmCvar_t	g_wpflags;
+vmCvar_t	g_weaponlimit;
+//qlone - freezetag
 
 
 static cvarTable_t gameCvarTable[] = {
@@ -159,10 +173,24 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_enableDust, "g_enableDust", "0", CVAR_SERVERINFO, 0, qtrue, qfalse },
 	{ &g_enableBreath, "g_enableBreath", "0", CVAR_SERVERINFO, 0, qtrue, qfalse },
 	{ &g_proxMineTimeout, "g_proxMineTimeout", "20000", 0, 0, qfalse },
+//qlone - freezetag
+#else
+	{ &g_enableBreath, "g_enableBreath", "1", CVAR_SERVERINFO, 0, qtrue, qfalse },
+//qlone - freezetag
 #endif
 	{ &g_smoothClients, "g_smoothClients", "1", 0, 0, qfalse},
 	{ &pmove_fixed, "pmove_fixed", "0", CVAR_SYSTEMINFO, 0, qfalse},
 	{ &pmove_msec, "pmove_msec", "8", CVAR_SYSTEMINFO, 0, qfalse},
+
+//qlone - freezetag
+	{ &g_doReady, "g_doReady", "0", 0, 0, qfalse },
+	{ &g_freezeTag, "freezeTag", "0", CVAR_SERVERINFO | CVAR_ARCHIVE, 0, qfalse },
+	{ &g_grapple, "g_grapple", "0", 0, 0, qfalse },
+	{ &g_startArmor, "g_startArmor", "0", 0, 0, qfalse },
+	{ &g_votelimit, "votelimit", "0", 0, 0, qfalse },
+	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
+	{ &g_weaponlimit, "weaponlimit", "0", 0, 0, qfalse },
+//qlone - freezetag
 
 	{ &g_rotation, "g_rotation", "", CVAR_ARCHIVE, 0, qfalse }
 
@@ -989,6 +1017,9 @@ void CalculateRanks( void ) {
 	}
 
 	// see if it is time to end the level
+//qlone - freezetag
+	if ( !g_freezeTag.integer )
+//qlone - freezetag
 	CheckExitRules();
 
 	// if we are at the intermission, send the new info to everyone
@@ -1481,6 +1512,10 @@ static void CheckExitRules( void ) {
 		return;
 	}
 
+//qlone - freezetag
+	if ( g_freezeTag.integer ) CheckDelay();
+//qlone - freezetag
+
 	// check for sudden death
 	if ( ScoreIsTied() ) {
 		// always wait for sudden death
@@ -1530,7 +1565,11 @@ static void CheckExitRules( void ) {
 		}
 	}
 
-	if ( g_gametype.integer >= GT_CTF && g_capturelimit.integer ) {
+//qlone - freezetag
+	//if ( g_gametype.integer >= GT_CTF && g_capturelimit.integer ) {
+	if ( (!g_freezeTag.integer && g_gametype.integer >= GT_CTF && g_capturelimit.integer)
+                || (g_freezeTag.integer && g_gametype.integer >= GT_TEAM && g_capturelimit.integer) ) {
+//qlone - freezetag
 
 		if ( level.teamScores[TEAM_RED] >= g_capturelimit.integer ) {
 			G_BroadcastServerCommand( -1, "print \"Red hit the capturelimit.\n\"" );
@@ -1751,6 +1790,10 @@ static void CheckTournament( void ) {
 		} else if ( level.numPlayingClients < 2 ) {
 			notEnough = qtrue;
 		}
+
+//qlone - freezetag
+		if ( !notEnough ) notEnough = readyCheck();
+//qlone - freezetag
 
 		if ( notEnough ) {
 			if ( level.warmupTime != -1 ) {

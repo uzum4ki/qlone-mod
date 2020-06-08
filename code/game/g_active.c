@@ -250,7 +250,9 @@ void	G_TouchTriggers( gentity_t *ent ) {
 		}
 
 		// ignore most entities if a spectator
-		if ( ent->client->sess.sessionTeam == TEAM_SPECTATOR ) {
+//qlone - freezetag
+		if ( /*ent->client->sess.sessionTeam == TEAM_SPECTATOR*/ is_spectator( ent->client ) ) {
+//qlone - freezetag
 			if ( hit->s.eType != ET_TELEPORT_TRIGGER &&
 				// this is ugly but adding a new ET_? type will
 				// most likely cause network incompatibilities
@@ -312,6 +314,11 @@ void SpectatorThink( gentity_t *ent, usercmd_t *ucmd ) {
 			pm.tracemask = 0;
 		else
 			pm.tracemask = MASK_PLAYERSOLID & ~CONTENTS_BODY;	// spectators can fly through bodies
+//qlone - freezetag
+		if ( g_freezeTag.integer && g_dmflags.integer & 512 ) {
+			pm.tracemask &= ~CONTENTS_PLAYERCLIP;
+		}
+//qlone - freezetag
 		pm.trace = trap_Trace;
 		pm.pointcontents = trap_PointContents;
 
@@ -331,6 +338,11 @@ void SpectatorThink( gentity_t *ent, usercmd_t *ucmd ) {
 	if ( ( client->buttons & BUTTON_ATTACK ) && ! ( client->oldbuttons & BUTTON_ATTACK ) ) {
 		Cmd_FollowCycle_f( ent, 1 );
 	}
+//qlone - freezetag
+	else if ( g_freezeTag.integer ) {
+		respawnSpectator( ent );
+	}
+//qlone - freezetag
 }
 
 
@@ -355,6 +367,11 @@ qboolean ClientInactivityTimer( gclient_t *client ) {
 		client->inactivityTime = level.time + g_inactivity.integer * 1000;
 		client->inactivityWarning = qfalse;
 	} else if ( !client->pers.localClient ) {
+//qlone - freezetag
+		if ( g_freezeTag.integer && g_entities[ client->ps.clientNum ].freezeState ) {
+			return qtrue;
+		}
+//qlone - freezetag
 		if ( level.time > client->inactivityTime ) {
 			trap_DropClient( client - level.clients, "Dropped due to inactivity" );
 			return qfalse;
@@ -791,7 +808,9 @@ void ClientThink_real( gentity_t *ent ) {
 	}
 
 	// spectators don't do much
-	if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
+//qlone - freezetag
+	if ( /*client->sess.sessionTeam == TEAM_SPECTATOR*/ is_spectator( client ) ) {
+//qlone - freezetag
 		if ( client->sess.spectatorState == SPECTATOR_SCOREBOARD ) {
 			return;
 		}
@@ -837,6 +856,11 @@ void ClientThink_real( gentity_t *ent ) {
 		client->hook && !( ucmd->buttons & BUTTON_ATTACK ) ) {
 		Weapon_HookFree(client->hook);
 	}
+
+//qlone - freezetag
+	if ( g_freezeTag.integer )
+		Hook_Fire( ent );
+//qlone - freezetag
 
 	// set up for pmove
 	oldEventSequence = client->ps.eventSequence;
@@ -892,7 +916,13 @@ void ClientThink_real( gentity_t *ent ) {
 	}
 	else {
 		pm.tracemask = MASK_PLAYERSOLID;
+//qlone - freezetag
+		if ( g_freezeTag.integer && g_dmflags.integer & 512 ) {
+			pm.tracemask &= ~CONTENTS_PLAYERCLIP;
+		}
+//qlone - freezetag
 	}
+
 	pm.trace = trap_Trace;
 	pm.pointcontents = trap_PointContents;
 	pm.debugLevel = g_debugMove.integer;
@@ -1051,17 +1081,31 @@ void SpectatorClientEndFrame( gentity_t *ent ) {
 		}
 		if ( (unsigned)clientNum < MAX_CLIENTS ) {
 			cl = &level.clients[ clientNum ];
-			if ( cl->pers.connected == CON_CONNECTED && cl->sess.sessionTeam != TEAM_SPECTATOR ) {
+//qlone - freezetag
+			if ( cl->pers.connected == CON_CONNECTED && /*cl->sess.sessionTeam != TEAM_SPECTATOR*/ !is_spectator( cl ) ) {
+//qlone - freezetag
 				flags = (cl->ps.eFlags & ~(EF_VOTED | EF_TEAMVOTED)) | (ent->client->ps.eFlags & (EF_VOTED | EF_TEAMVOTED));
-				ent->client->ps = cl->ps;
+//qlone - freezetag
+				//ent->client->ps = cl->ps;
+				if ( !g_freezeTag.integer )
+					ent->client->ps = cl->ps;
+				else
+					Persistant_spectator( ent, cl );
+//qlone - freezetag
 				ent->client->ps.pm_flags |= PMF_FOLLOW;
 				ent->client->ps.eFlags = flags;
 				return;
 			} else {
 				// drop them to free spectators unless they are dedicated camera followers
 				if ( ent->client->sess.spectatorClient >= 0 ) {
-					ent->client->sess.spectatorState = SPECTATOR_FREE;
-					ClientBegin( ent->client - level.clients );
+//qlone - freezetag
+					if ( g_freezeTag.integer )
+						StopFollowing( ent, qtrue );
+					else {
+//qlone - freezetag
+						ent->client->sess.spectatorState = SPECTATOR_FREE;
+						ClientBegin( ent->client - level.clients );
+					} //qlone - freezetag
 				}
 			}
 		}
@@ -1096,7 +1140,9 @@ void ClientEndFrame( gentity_t *ent ) {
 
 	ent->r.svFlags &= ~svf_self_portal2;
 
-	if ( ent->client->sess.sessionTeam == TEAM_SPECTATOR ) {
+//qlone - freezetag
+	if ( /*ent->client->sess.sessionTeam == TEAM_SPECTATOR*/ is_spectator( ent->client ) ) {
+//qlone - freezetag
 		SpectatorClientEndFrame( ent );
 		return;
 	}
