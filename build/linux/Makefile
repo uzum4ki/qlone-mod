@@ -24,7 +24,7 @@ endif
 -include Makefile.local
 
 ifndef MOD
-MOD=baseq3a
+MOD=qlone
 endif
 
 ifeq ($(COMPILE_PLATFORM),cygwin)
@@ -372,6 +372,7 @@ QAOBJ_ = \
   $(B)/$(MOD)/game/ai_cmd.o \
   $(B)/$(MOD)/game/ai_dmnet.o \
   $(B)/$(MOD)/game/ai_dmq3.o \
+  $(B)/$(MOD)/game/ai_freeze.o \
   $(B)/$(MOD)/game/ai_main.o \
   $(B)/$(MOD)/game/ai_team.o \
   $(B)/$(MOD)/game/ai_vcmd.o \
@@ -385,6 +386,7 @@ QAOBJ_ = \
   $(B)/$(MOD)/game/g_client.o \
   $(B)/$(MOD)/game/g_cmds.o \
   $(B)/$(MOD)/game/g_combat.o \
+  $(B)/$(MOD)/game/g_freeze.o \
   $(B)/$(MOD)/game/g_items.o \
   $(B)/$(MOD)/game/g_mem.o \
   $(B)/$(MOD)/game/g_misc.o \
