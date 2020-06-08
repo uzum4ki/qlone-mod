@@ -985,6 +985,8 @@ void Cmd_Drop_f( gentity_t *ent ) {
 			ent->client->ps.stats[ STAT_HOLDABLE_ITEM ] = 0;
 		}
 		break;
+	default:
+		break;
 	}
 }
 
