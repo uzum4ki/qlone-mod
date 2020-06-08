@@ -114,13 +114,13 @@ static void player_free( gentity_t *ent ) {
 }
 
 void Body_free( gentity_t *self ) {
-	int	i;
-	gentity_t	*ent;
-
 	if ( self->freezeState ) {
 		player_free( self->target_ent );
 	}
 #ifdef MISSIONPACK
+	int	i;
+	gentity_t	*ent;
+
 	if ( self->s.eFlags & EF_KAMIKAZE ) {
 		for ( i = 0; i < MAX_GENTITIES; i++ ) {
 			ent = &g_entities[ i ];
@@ -863,6 +863,8 @@ void locationSpawn( gentity_t *ent, gitem_t *item ) {
 		} else if ( item->giTag == PW_REDFLAG ) {
 			VectorCopy( ent->r.currentOrigin, redflag );
 		}
+	default:
+		break;
 	}
 
 	e = G_Spawn();
