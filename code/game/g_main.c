@@ -89,7 +89,7 @@ vmCvar_t	g_grapple;
 vmCvar_t	g_noSelfDamage;
 vmCvar_t	g_startArmor;
 vmCvar_t	g_startHealth;
-vmCvar_t	g_votelimit;
+//vmCvar_t	g_votelimit;
 vmCvar_t	g_wpflags;
 vmCvar_t	g_weaponlimit;
 //qlone
@@ -191,7 +191,7 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_noSelfDamage, "g_noSelfDamage", "0", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_startArmor, "g_startArmor", "0", 0, 0, qfalse },
 	{ &g_startHealth, "g_startHealth", "0", 0, 0, qfalse },
-	{ &g_votelimit, "votelimit", "0", 0, 0, qfalse },
+	//{ &g_votelimit, "votelimit", "0", 0, 0, qfalse },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
 	{ &g_weaponlimit, "weaponlimit", "0", 0, 0, qfalse },
 //qlone

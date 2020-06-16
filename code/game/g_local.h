@@ -852,7 +852,7 @@ extern	vmCvar_t	g_grapple;
 extern	vmCvar_t	g_noSelfDamage;
 extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_startHealth;
-extern	vmCvar_t	g_votelimit;
+//extern	vmCvar_t	g_votelimit;
 extern	vmCvar_t	g_wpflags;
 extern	vmCvar_t	g_weaponlimit;
 //qlone
