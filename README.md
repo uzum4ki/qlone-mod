@@ -11,4 +11,5 @@ Qlone adds some nifty stuff like the FreezeTag gameplay, based on the Quake 3 [F
 
 * freezeTag <0|1> : toggle the Freeze Tag gameplay
 * g_noSelfDamage <0|1> : toggle the player self damages
+* g_startArmor <0|200> : allow to define the amount of armor at spawn
 * g_startHealth <0|200> : allow to define the amount of health at spawn
