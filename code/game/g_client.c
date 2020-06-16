@@ -1112,6 +1112,14 @@ void ClientSpawn(gentity_t *ent) {
 
 	// health will count down towards max_health
 	ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+	//qlone - custom health
+	if ( g_startHealth.integer > 0 ) {
+		client->ps.stats[STAT_HEALTH] += g_startHealth.integer;
+		if ( client->ps.stats[STAT_HEALTH] > client->ps.stats[STAT_MAX_HEALTH] * 2 )
+			client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] * 2;
+		ent->health = client->ps.stats[STAT_HEALTH];
+	}
+	//qlone - custom health
 
 	G_SetOrigin( ent, spawn_origin );
 	VectorCopy( spawn_origin, client->ps.origin );
