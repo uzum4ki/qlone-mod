@@ -845,15 +845,16 @@ extern	vmCvar_t	g_enableDust;
 extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
-//qlone - freezetag
+//qlone
 extern	vmCvar_t	g_doReady;
 extern	vmCvar_t	g_freezeTag;
 extern	vmCvar_t	g_grapple;
+extern	vmCvar_t	g_noSelfDamage;
 extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_votelimit;
 extern	vmCvar_t	g_wpflags;
 extern	vmCvar_t	g_weaponlimit;
-//qlone - freezetag
+//qlone
 
 void	trap_Print( const char *text );
 void	trap_Error( const char *text );
