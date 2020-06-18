@@ -776,8 +776,6 @@ void locationSpawn( gentity_t *ent, gitem_t *item );
 void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
-//void voteInvalid( gentity_t *ent );
-//qboolean voteCheck( void );
 qboolean WeaponDisabled( gitem_t *item );
 void RegisterWeapon( void );
 void SpawnWeapon( gclient_t *client );
@@ -852,7 +850,6 @@ extern	vmCvar_t	g_grapple;
 extern	vmCvar_t	g_noSelfDamage;
 extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_startHealth;
-//extern	vmCvar_t	g_votelimit;
 extern	vmCvar_t	g_wpflags;
 extern	vmCvar_t	g_weaponlimit;
 //qlone
