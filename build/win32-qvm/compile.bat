@@ -150,6 +150,8 @@ cd vm\game
 @if errorlevel 1 goto quit
 %cc2% %gamedir%\g_mover.c
 @if errorlevel 1 goto quit
+%cc2% %gamedir%\g_qlone.c
+@if errorlevel 1 goto quit
 %cc2% %gamedir%\g_rotation.c
 @if errorlevel 1 goto quit
 %cc2% %gamedir%\g_session.c

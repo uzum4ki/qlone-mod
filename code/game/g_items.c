@@ -886,9 +886,10 @@ void ClearRegisteredItems( void ) {
 		RegisterItem( BG_FindItem( "Blue Cube" ) );
 	}
 #endif
-//qlone - freezetag
-	if ( g_freezeTag.integer ) RegisterWeapon();
-//qlone - freezetag
+//qlone - custom weapons
+	G_RegisterWeapon();
+	if ( g_freezeTag.integer ) ResetFTFlags(); //qlone - freezetag
+//qlone - custom weapons
 }
 
 /*

@@ -777,9 +777,15 @@ void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
 qboolean WeaponDisabled( gitem_t *item );
-void RegisterWeapon( void );
+void ResetFTFlags( void );
 void SpawnWeapon( gclient_t *client );
 //qlone - freezetag
+
+
+//qlone
+// g_qlone.c
+void G_RegisterWeapon( void );
+//qlone
 
 
 #include "g_team.h" // teamplay specific stuff

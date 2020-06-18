@@ -1091,43 +1091,9 @@ qboolean WeaponDisabled( gitem_t *item ) {
 	return qfalse;
 }
 
-void RegisterWeapon( void ) {
-	if ( g_wpflags.integer & 2 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_SHOTGUN ) );
-	}
-	if ( g_wpflags.integer & 4 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_GRENADE_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 8 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 16 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_LIGHTNING ) );
-	}
-	if ( g_wpflags.integer & 32 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_RAILGUN ) );
-	}
-	if ( g_wpflags.integer & 64 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_PLASMAGUN ) );
-	}
-	if ( g_wpflags.integer & 128 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_BFG ) );
-	}
-#ifdef MISSIONPACK
-	if ( g_wpflags.integer & 256 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_NAILGUN ) );
-	}
-	if ( g_wpflags.integer & 512 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_PROX_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 1024 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_CHAINGUN ) );
-	}
-#endif
-	if ( g_grapple.integer > 0 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_GRAPPLING_HOOK ) );
-	}
-
+// qlone - dedicated function as original RegisterWeapon is now a generic
+// game function (G_RegisterWeapon)
+void ResetFTFlags ( void ) {
 	VectorClear( redflag );
 	VectorClear( blueflag );
 }

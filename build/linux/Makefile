@@ -392,6 +392,7 @@ QAOBJ_ = \
   $(B)/$(MOD)/game/g_misc.o \
   $(B)/$(MOD)/game/g_missile.o \
   $(B)/$(MOD)/game/g_mover.o \
+  $(B)/$(MOD)/game/g_qlone.o \
   $(B)/$(MOD)/game/g_rotation.o \
   $(B)/$(MOD)/game/g_session.o \
   $(B)/$(MOD)/game/g_spawn.o \
