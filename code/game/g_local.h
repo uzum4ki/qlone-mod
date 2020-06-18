@@ -779,7 +779,6 @@ void Cmd_Ready_f( gentity_t *ent );
 qboolean WeaponDisabled( gitem_t *item );
 void RegisterWeapon( void );
 void SpawnWeapon( gclient_t *client );
-int InvulnerabilityEffect( gentity_t *targ, vec3_t dir, vec3_t point, vec3_t impactpoint, vec3_t bouncedir );
 //qlone - freezetag
 
 

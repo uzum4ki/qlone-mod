@@ -256,11 +256,6 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 #ifdef MISSIONPACK
 	vec3_t			forward, impactpoint, bouncedir;
 	int				eFlags;
-//qlone - freezetag
-#else
-	vec3_t	forward, impactpoint, bouncedir;
-	int	eFlags;
-//qlone - freezetag
 #endif
 	other = &g_entities[trace->entityNum];
 
@@ -399,24 +394,6 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 
 		return;
 	}
-
-//qlone - freezetag
-/*freeze
-        if ( is_body_freeze( other ) && level.time - other->timestamp > 400 ) {
-                VectorCopy( ent->s.pos.trDelta, forward );
-                VectorNormalize( forward );
-                if ( InvulnerabilityEffect( other, forward, ent->s.pos.trBase, impactpoint, bouncedir ) ) {
-                        VectorCopy( bouncedir, trace->plane.normal );
-                        eFlags = ent->s.eFlags & EF_BOUNCE_HALF;
-                        ent->s.eFlags &= ~EF_BOUNCE_HALF;
-                        G_BounceMissile( ent, trace );
-                        ent->s.eFlags |= eFlags;
-                }
-                ent->target_ent = other;
-                return;
-        }
-freeze*/
-//qlone - freezetag
 
 	// is it cheaper in bandwidth to just remove this ent and create a new
 	// one, rather than changing the missile into the explosion?

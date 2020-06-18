@@ -1188,29 +1188,3 @@ void SpawnWeapon( gclient_t *client ) {
 		}
 	}
 }
-
-int RaySphereIntersections( vec3_t origin, float radius, vec3_t point, vec3_t dir, vec3_t intersections[ 2 ] );
-
-int InvulnerabilityEffect( gentity_t *targ, vec3_t dir, vec3_t point, vec3_t impactpoint, vec3_t bouncedir ) {
-	vec3_t	intersections[ 2 ], vec;
-	int	n;
-
-	if ( !targ->freezeState ) {
-		return qfalse;
-	}
-	VectorCopy( dir, vec );
-	VectorInverse( vec );
-	n = RaySphereIntersections( targ->r.currentOrigin, 42, point, vec, intersections );
-	if ( n > 0 ) {
-		VectorSubtract( intersections[ 0 ], targ->r.currentOrigin, vec );
-		if ( impactpoint ) {
-			VectorCopy( intersections[ 0 ], impactpoint );
-		}
-		if ( bouncedir ) {
-			VectorCopy( vec, bouncedir );
-			VectorNormalize( bouncedir );
-		}
-		return qtrue;
-	}
-	return qfalse;
-}
