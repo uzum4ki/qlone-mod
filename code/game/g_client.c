@@ -1136,10 +1136,13 @@ void ClientSpawn(gentity_t *ent) {
 	if ( !is_spectator( client ) ) {
 //qlone - freezetag
 		G_KillBox( ent );
-//qlone - freezetag
-		SpawnWeapon( client );
+//qlone - custom weapons
+		if ( g_freezeTag.integer )
+			SpawnWeapon( client );
+		else
+			G_SpawnWeapon( client );
+//qlone - custom weapons
 	}
-//qlone - freezetag
 
 	// force the base weapon up
 	client->ps.weapon = WP_MACHINEGUN;

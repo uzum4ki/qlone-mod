@@ -777,14 +777,15 @@ void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
 qboolean WeaponDisabled( gitem_t *item );
-void ResetFTFlags( void );
 void SpawnWeapon( gclient_t *client );
+void ResetFTFlags( void );
 //qlone - freezetag
 
 
 //qlone
 // g_qlone.c
 void G_RegisterWeapon( void );
+void G_SpawnWeapon( gclient_t *client );
 //qlone
 
 
