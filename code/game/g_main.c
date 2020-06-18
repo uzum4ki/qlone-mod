@@ -87,6 +87,19 @@ vmCvar_t	g_doReady;
 vmCvar_t	g_freezeTag;
 vmCvar_t	g_grapple;
 vmCvar_t	g_noSelfDamage;
+vmCvar_t	g_startAmmoMG;
+vmCvar_t	g_startAmmoSG;
+vmCvar_t	g_startAmmoGL;
+vmCvar_t	g_startAmmoRL;
+vmCvar_t	g_startAmmoLG;
+vmCvar_t	g_startAmmoRG;
+vmCvar_t	g_startAmmoPG;
+vmCvar_t	g_startAmmoBFG;
+#ifdef MISSIONPACK
+vmCvar_t	g_startAmmoNG;
+vmCvar_t	g_startAmmoPL;
+vmCvar_t	g_startAmmoCG;
+#endif
 vmCvar_t	g_startArmor;
 vmCvar_t	g_startHealth;
 vmCvar_t	g_wpflags;
@@ -188,6 +201,19 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_freezeTag, "freezeTag", "0", CVAR_SERVERINFO | CVAR_ARCHIVE, 0, qfalse },
 	{ &g_grapple, "g_grapple", "0", 0, 0, qfalse },
 	{ &g_noSelfDamage, "g_noSelfDamage", "0", CVAR_ARCHIVE, 0, qtrue },
+	{ &g_startAmmoMG, "g_startAmmoMG", "50", 0, 0, qfalse },
+	{ &g_startAmmoSG, "g_startAmmoSG", "10", 0, 0, qfalse },
+	{ &g_startAmmoGL, "g_startAmmoGL", "5", 0, 0, qfalse },
+	{ &g_startAmmoRL, "g_startAmmoRL", "5", 0, 0, qfalse },
+	{ &g_startAmmoLG, "g_startAmmoLG", "60", 0, 0, qfalse },
+	{ &g_startAmmoRG, "g_startAmmoRG", "10", 0, 0, qfalse },
+	{ &g_startAmmoPG, "g_startAmmoPG", "30", 0, 0, qfalse },
+	{ &g_startAmmoBFG, "g_startAmmoBFG", "15", 0, 0, qfalse },
+#ifdef MISSIONPACK
+	{ &g_startAmmoNG, "g_startAmmoNG", "20", 0, 0, qfalse },
+	{ &g_startAmmoPL, "g_startAmmoPL", "10", 0, 0, qfalse },
+	{ &g_startAmmoCG, "g_startAmmoCG", "100", 0, 0, qfalse },
+#endif
 	{ &g_startArmor, "g_startArmor", "0", 0, 0, qfalse },
 	{ &g_startHealth, "g_startHealth", "0", 0, 0, qfalse },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
