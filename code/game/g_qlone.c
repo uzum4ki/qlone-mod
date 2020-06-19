@@ -127,6 +127,7 @@ qboolean G_WeaponDisabled ( gitem_t *item ) {
 	if ( ( g_weaponlimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "weapon_chaingun" ) ) )
 		return qtrue;
 #endif
+	return qfalse;
 }
 
 qboolean G_AmmoDisabled ( gitem_t *item ) {
@@ -154,4 +155,5 @@ qboolean G_AmmoDisabled ( gitem_t *item ) {
 	if ( ( g_ammolimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "ammo_belt" ) ) )
 		return qtrue;
 #endif
+	return qfalse;
 }

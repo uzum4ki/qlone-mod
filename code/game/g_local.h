@@ -777,7 +777,7 @@ void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
 void SpawnWeapon( gclient_t *client );
-void ResetFTFlags( void );
+void FT_ResetFlags( void );
 //qlone - freezetag
 
 

@@ -888,7 +888,7 @@ void ClearRegisteredItems( void ) {
 #endif
 //qlone - custom weapons
 	G_RegisterWeapon();
-	if ( g_freezeTag.integer ) ResetFTFlags(); //qlone - freezetag
+	if ( g_freezeTag.integer ) FT_ResetFlags(); //qlone - freezetag
 //qlone - custom weapons
 }
 

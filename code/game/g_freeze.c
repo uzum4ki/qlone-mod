@@ -998,7 +998,7 @@ void Cmd_Ready_f( gentity_t *ent ) {
 
 // qlone - dedicated function as original RegisterWeapon is now a generic
 // game function (G_RegisterWeapon)
-void ResetFTFlags ( void ) {
+void FT_ResetFlags ( void ) {
 	VectorClear( redflag );
 	VectorClear( blueflag );
 }
