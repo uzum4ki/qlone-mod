@@ -721,7 +721,8 @@ void team_wins( int team ) {
 		cl->ps.weapon = WP_MACHINEGUN;
 		cl->ps.weaponstate = WEAPON_READY;
 
-		SpawnWeapon( cl );
+		G_SpawnWeapon( cl );
+		if ( g_dmflags.integer & 1024 ) G_SetInfiniteAmmo( cl );
 
 		flight = cl->ps.powerups[ PW_FLIGHT ];
 		if ( cl->ps.powerups[ PW_REDFLAG ] ) {
@@ -1001,16 +1002,5 @@ void Cmd_Ready_f( gentity_t *ent ) {
 void FT_ResetFlags ( void ) {
 	VectorClear( redflag );
 	VectorClear( blueflag );
-}
-
-void SpawnWeapon( gclient_t *client ) {
-	int	i;
-
-	G_SpawnWeapon ( client );
-	if ( g_dmflags.integer & 1024 ) {
-		for ( i = 0; i < MAX_WEAPONS; i++ ) {
-			client->ps.ammo[ i ] = INFINITE;
-		}
-	}
 }
 

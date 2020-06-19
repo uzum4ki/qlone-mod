@@ -1137,10 +1137,9 @@ void ClientSpawn(gentity_t *ent) {
 //qlone - freezetag
 		G_KillBox( ent );
 //qlone - custom weapons
-		if ( g_freezeTag.integer )
-			SpawnWeapon( client );
-		else
-			G_SpawnWeapon( client );
+		G_SpawnWeapon( client );
+		if ( g_freezeTag.integer && ( g_dmflags.integer & 1024 ) )
+			G_SetInfiniteAmmo( client );
 //qlone - custom weapons
 	}
 

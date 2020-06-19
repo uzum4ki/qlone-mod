@@ -157,3 +157,11 @@ qboolean G_AmmoDisabled ( gitem_t *item ) {
 #endif
 	return qfalse;
 }
+
+void G_SetInfiniteAmmo ( gclient_t *client ) {
+	int     i;
+	for ( i = 0; i < MAX_WEAPONS; i++ ) {
+		client->ps.ammo[ i ] = INFINITE;
+	}
+}
+

@@ -776,7 +776,6 @@ void locationSpawn( gentity_t *ent, gitem_t *item );
 void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
-void SpawnWeapon( gclient_t *client );
 void FT_ResetFlags( void );
 //qlone - freezetag
 
@@ -787,6 +786,7 @@ void G_RegisterWeapon( void );
 void G_SpawnWeapon( gclient_t *client );
 qboolean G_WeaponDisabled( gitem_t *item );
 qboolean G_AmmoDisabled( gitem_t *item );
+void G_SetInfiniteAmmo ( gclient_t *client );
 //qlone
 
 
