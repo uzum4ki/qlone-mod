@@ -14,3 +14,24 @@ Qlone adds some nifty stuff like the FreezeTag gameplay, based on the Quake 3 [F
 * g_startAmmo*X* <0|200> : allow to define the amount of ammunitions for a weapon. *X* can be MG, SG, GL, RL, LG, RG, PG, BFG, NG, PL, CG
 * g_startArmor <0|200> : allow to define the amount of armor at spawn
 * g_startHealth <0|200> : allow to define the amount of health at spawn
+
+The following cvars use a "special" value which acts as a combination of integers to specify a group of items:
+
+* ammolimit, weaponlimit <VAL> : specify what kind of item should be spawned on a map
+* wpflags <VAL> : what weapons a player should have at spawn.
+  
+The corresponding values are:
+
+* Machinegun	1
+* Shotgun	2
+* Grenade Launcher	4
+* Rocket Launcher	8
+* Lightning Gun	16
+* Railgun	32
+* Plasma Gun	64
+* BFG10K	128
+* Nailgun	256
+* Prox Launcher	512
+* Chaingun	1024
+
+So, in order to let a player starts with a shotgun, a grenade launcher and a rocket launcher you can use "wpflags 14" (for 14 is 2+4+8). Note that players always start with the machinegun and the gauntlet.
