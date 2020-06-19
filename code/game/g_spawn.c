@@ -249,6 +249,8 @@ spawn_t	spawns[] = {
 	{0, 0}
 };
 
+int G_ItemDisabled( gitem_t *item ); //qlone - prototype needeed to use it in G_CallSpawn
+
 /*
 ===============
 G_CallSpawn
@@ -269,12 +271,10 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	// check item spawn functions
 	for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
 		if ( !strcmp(item->classname, ent->classname) ) {
-//qlone - freezetag
-			if ( g_freezeTag.integer )
-				locationSpawn( ent, item );
-			if ( WeaponDisabled( item ) )
-				return qfalse;
-//qlone - freezetag
+			if ( g_freezeTag.integer ) locationSpawn( ent, item ); //qlone - freezetag
+			if ( G_WeaponDisabled( item ) ) return qfalse; //qlone - custom weapons
+			if ( G_AmmoDisabled( item ) ) return qfalse; //qlone - custom weapons
+			if ( G_ItemDisabled( item ) ) return qfalse; //qlone - disabled items
 			G_SpawnItem( ent, item );
 			return qtrue;
 		}

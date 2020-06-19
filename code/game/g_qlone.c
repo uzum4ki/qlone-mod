@@ -103,3 +103,55 @@ void G_SpawnWeapon ( gclient_t *client ) {
 	}
 #endif
 }
+
+qboolean G_WeaponDisabled ( gitem_t *item ) {
+	if ( ( g_weaponlimit.integer & 2 ) && ( !Q_stricmp( item->classname, "weapon_shotgun" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 4 ) && ( !Q_stricmp( item->classname, "weapon_grenadelauncher" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 8 ) && ( !Q_stricmp( item->classname, "weapon_rocketlauncher" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 16 ) && ( !Q_stricmp( item->classname, "weapon_lightning" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 32 ) && ( !Q_stricmp( item->classname, "weapon_railgun" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 64 ) && ( !Q_stricmp( item->classname, "weapon_plasmagun" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 128 ) && ( !Q_stricmp( item->classname, "weapon_bfg" ) ) )
+		return qtrue;
+#ifdef MISSIONPACK
+	if ( ( g_weaponlimit.integer & 256 ) && ( !Q_stricmp( item->classname, "weapon_nailgun" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 512 ) && ( !Q_stricmp( item->classname, "weapon_prox_launcher" ) ) )
+		return qtrue;
+	if ( ( g_weaponlimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "weapon_chaingun" ) ) )
+		return qtrue;
+#endif
+}
+
+qboolean G_AmmoDisabled ( gitem_t *item ) {
+	if ( ( g_ammolimit.integer & 1 ) && ( !Q_stricmp( item->classname, "ammo_bullets" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 2 ) && ( !Q_stricmp( item->classname, "ammo_shells" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 4 ) && ( !Q_stricmp( item->classname, "ammo_grenades" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 8 ) && ( !Q_stricmp( item->classname, "ammo_rockets" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 16 ) && ( !Q_stricmp( item->classname, "ammo_lightning" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 32 ) && ( !Q_stricmp( item->classname, "ammo_slugs" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 64 ) && ( !Q_stricmp( item->classname, "ammo_cells" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 128 ) && ( !Q_stricmp( item->classname, "ammo_bfg" ) ) )
+		return qtrue;
+#ifdef MISSIONPACK
+	if ( ( g_ammolimit.integer & 256 ) && ( !Q_stricmp( item->classname, "ammo_nails" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 512 ) && ( !Q_stricmp( item->classname, "ammo_mines" ) ) )
+		return qtrue;
+	if ( ( g_ammolimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "ammo_belt" ) ) )
+		return qtrue;
+#endif
+}

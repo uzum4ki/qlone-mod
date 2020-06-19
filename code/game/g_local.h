@@ -776,7 +776,6 @@ void locationSpawn( gentity_t *ent, gitem_t *item );
 void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
-qboolean WeaponDisabled( gitem_t *item );
 void SpawnWeapon( gclient_t *client );
 void ResetFTFlags( void );
 //qlone - freezetag
@@ -786,6 +785,8 @@ void ResetFTFlags( void );
 // g_qlone.c
 void G_RegisterWeapon( void );
 void G_SpawnWeapon( gclient_t *client );
+qboolean G_WeaponDisabled( gitem_t *item );
+qboolean G_AmmoDisabled( gitem_t *item );
 //qlone
 
 
@@ -850,6 +851,7 @@ extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
 //qlone
+extern	vmCvar_t	g_ammolimit;
 extern	vmCvar_t	g_doReady;
 extern	vmCvar_t	g_freezeTag;
 extern	vmCvar_t	g_grapple;
