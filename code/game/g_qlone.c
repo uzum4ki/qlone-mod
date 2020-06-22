@@ -1,5 +1,16 @@
 #include "g_local.h"
 
+void G_ItemReplaced ( gentity_t *ent ) {
+	char name[128];
+	char newname[128];
+
+	Com_sprintf(name, sizeof(name), "replace_%s", ent->classname);
+	trap_Cvar_VariableStringBuffer( name, newname, sizeof(newname) );
+	if ( newname[0] ) {
+		Q_strcpy ( ent->classname, newname );
+	}
+}
+
 // Custom weapons
 // Note that the gauntlet and the machinegun are always set up
 

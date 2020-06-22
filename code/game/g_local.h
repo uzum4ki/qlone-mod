@@ -62,7 +62,7 @@ struct gentity_s {
 
 	qboolean	inuse;
 
-	const char	*classname;			// set in QuakeEd
+	/*qlone //const*/ char	*classname;			// set in QuakeEd
 	int			spawnflags;			// set in QuakeEd
 
 	qboolean	neverFree;			// if true, FreeEntity will only unlink
@@ -782,6 +782,7 @@ void FT_ResetFlags( void );
 
 //qlone
 // g_qlone.c
+void G_ItemReplaced( gentity_t *ent );
 void G_RegisterWeapon( void );
 void G_SpawnWeapon( gclient_t *client );
 qboolean G_WeaponDisabled( gitem_t *item );
