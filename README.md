@@ -9,11 +9,12 @@ Qlone adds some nifty stuff like the FreezeTag gameplay, based on the Quake 3 [F
 
 ## New cvars
 
-* freezeTag <0|1> : toggle the Freeze Tag gameplay
-* g_noSelfDamage <0|1> : toggle the player self damages
+* freezeTag <0|1> : default to 0. Toggle the Freeze Tag gameplay
+* g_noSelfDamage <0|1> : default to 0. Toggle the player self damages
 * g_startAmmo*X* <0|200> : allow to define the amount of ammunitions for a weapon. *X* can be MG, SG, GL, RL, LG, RG, PG, BFG, NG, PL, CG
 * g_startArmor <0|200> : allow to define the amount of armor at spawn
 * g_startHealth <0|200> : allow to define the amount of health at spawn
+* g_tossWeapon <0|1> : default to 1. When set to 0, a fragged player won't toss its weapon
 
 The following cvars use a "special" value which acts as a combination of integers to specify a group of items:
 
@@ -35,3 +36,5 @@ The corresponding values are:
 * Chaingun	1024
 
 So, in order to let a player starts with a shotgun, a grenade launcher and a rocket launcher you can use "wpflags 14" (for 14 is 2+4+8). Note that players always start with the machinegun and the gauntlet.
+
+In addition, some dynamic cvars may be used to disable or replace an item on a map. The syntax is **disable_ITEM** or **replace_ITEM**, where ITEM is a valid Q3 item classname. For instance, to disable the Quad powerup, use `set disable_item_quad "1"`. If you want to replace the bullets ammo with the rockets ammo use `set replace_ammo_bullets "ammo_rockets"`. Note that replace does only change the classname thus only items of the same type should be safely replaced...
