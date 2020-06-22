@@ -103,6 +103,7 @@ vmCvar_t	g_startAmmoCG;
 #endif
 vmCvar_t	g_startArmor;
 vmCvar_t	g_startHealth;
+vmCvar_t	g_tossWeapon;
 vmCvar_t	g_wpflags;
 vmCvar_t	g_weaponlimit;
 //qlone
@@ -218,6 +219,7 @@ static cvarTable_t gameCvarTable[] = {
 #endif
 	{ &g_startArmor, "g_startArmor", "0", 0, 0, qfalse },
 	{ &g_startHealth, "g_startHealth", "0", 0, 0, qfalse },
+	{ &g_tossWeapon, "g_tossWeapon", "1", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
 	{ &g_weaponlimit, "weaponlimit", "0", 0, 0, qfalse },
 //qlone

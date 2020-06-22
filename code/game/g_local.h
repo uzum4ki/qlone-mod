@@ -870,6 +870,7 @@ extern	vmCvar_t	g_startAmmoPL;
 extern	vmCvar_t	g_startAmmoCG;
 extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_startHealth;
+extern	vmCvar_t	g_tossWeapon;
 extern	vmCvar_t	g_wpflags;
 extern	vmCvar_t	g_weaponlimit;
 //qlone
