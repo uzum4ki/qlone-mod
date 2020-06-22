@@ -763,6 +763,7 @@ void Cmd_Team_f( gentity_t *ent ) {
 		case TEAM_SPECTATOR:
 			trap_SendServerCommand( ent-g_entities, "print \"Spectator team\n\"" );
 			break;
+		default: break; //qlone - avoid compiler warnings
 		}
 		return;
 	}
@@ -1332,6 +1333,8 @@ void Cmd_Where_f( gentity_t *ent ) {
 }
 
 
+//qlone - avoid compiler warnings
+/*
 static const char *gameNames[] = {
 	"Free For All",
 	"Tournament",
@@ -1342,6 +1345,8 @@ static const char *gameNames[] = {
 	"Overload",
 	"Harvester"
 };
+*/
+//qlone - avoid compiler warnings
 
 static const char *voteCommands[] = {
 	"map_restart",

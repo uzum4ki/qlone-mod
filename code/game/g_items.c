@@ -75,6 +75,8 @@ int SpawnTime( gentity_t *ent, qboolean firstSpawn )
 
 	case IT_HOLDABLE:
 		return firstSpawn ? SPAWN_HOLDABLE : RESPAWN_HOLDABLE;
+
+	default: break; //qlone - avoid compiler warnings
 	}
 
 	return 0;

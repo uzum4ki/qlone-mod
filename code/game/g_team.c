@@ -199,6 +199,7 @@ static void Team_SetFlagStatus( team_t team, flagStatus_t status ) {
 			modified = qtrue;
 		}
 		break;
+	default: break; //qlone - avoid compiler warnings
 	}
 
 	if( modified ) {
@@ -606,6 +607,7 @@ static void Team_TakeFlagSound( gentity_t *ent, team_t team ) {
 			}
 			teamgame.redTakenTime = level.time;
 			break;
+		default: break; //qlone - avoid compiler warnings
 	}
 
 	te = G_TempEntity( ent->s.pos.trBase, EV_GLOBAL_TEAM_SOUND );
