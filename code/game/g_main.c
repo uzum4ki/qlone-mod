@@ -83,7 +83,6 @@ vmCvar_t	g_enableBreath;
 #endif
 
 //qlone
-vmCvar_t	g_removeammo;
 vmCvar_t	g_doReady;
 vmCvar_t	g_freezeTag;
 vmCvar_t	g_grapple;
@@ -105,6 +104,8 @@ vmCvar_t	g_startArmor;
 vmCvar_t	g_startHealth;
 vmCvar_t	g_tossWeapon;
 vmCvar_t	g_wpflags;
+vmCvar_t	g_removeammo;
+vmCvar_t	g_removeitem;
 vmCvar_t	g_removeweapon;
 //qlone
 
@@ -220,6 +221,7 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_startHealth, "g_startHealth", "0", 0, 0, qfalse },
 	{ &g_tossWeapon, "g_tossWeapon", "1", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_removeammo, "removeammo", "0", 0, 0, qfalse },
+	{ &g_removeitem, "removeitem", "0", 0, 0, qfalse },
 	{ &g_removeweapon, "removeweapon", "0", 0, 0, qfalse },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
 //qlone

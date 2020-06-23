@@ -852,7 +852,6 @@ extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
 //qlone
-extern	vmCvar_t	g_removeammo;
 extern	vmCvar_t	g_doReady;
 extern	vmCvar_t	g_freezeTag;
 extern	vmCvar_t	g_grapple;
@@ -872,6 +871,8 @@ extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_startHealth;
 extern	vmCvar_t	g_tossWeapon;
 extern	vmCvar_t	g_wpflags;
+extern	vmCvar_t	g_removeammo;
+extern	vmCvar_t	g_removeitem;
 extern	vmCvar_t	g_removeweapon;
 //qlone
 

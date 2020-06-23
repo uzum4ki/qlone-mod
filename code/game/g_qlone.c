@@ -146,6 +146,20 @@ qboolean G_RemoveAmmo ( gitem_t *item ) {
 	return qfalse;
 }
 
+qboolean G_RemoveItem ( gitem_t *item ) {
+	if ( ( ( g_removeitem.integer & 1 ) && ( !Q_stricmp( item->classname, "item_armor_shard" ) ) )
+		|| ( ( g_removeitem.integer & 2 ) && ( !Q_stricmp( item->classname, "item_armor_combat" ) ) )
+		|| ( ( g_removeitem.integer & 4 ) && ( !Q_stricmp( item->classname, "item_armor_body" ) ) )
+		|| ( ( g_removeitem.integer & 8 ) && ( !Q_stricmp( item->classname, "item_health_small" ) ) )
+		|| ( ( g_removeitem.integer & 16 ) && ( !Q_stricmp( item->classname, "item_health" ) ) )
+		|| ( ( g_removeitem.integer & 32 ) && ( !Q_stricmp( item->classname, "item_health_large" ) ) )
+		|| ( ( g_removeitem.integer & 64 ) && ( !Q_stricmp( item->classname, "item_health_mega" ) ) )
+		|| ( ( g_removeitem.integer & 128 ) && ( !Q_stricmp( item->classname, "holdable_teleporter" ) ) )
+		|| ( ( g_removeitem.integer & 256 ) && ( !Q_stricmp( item->classname, "holdable_medkit" ) ) ) )
+			return qtrue;
+	return qfalse;
+}
+
 void G_SetInfiniteAmmo ( gclient_t *client ) {
 	int     i;
 	for ( i = 0; i < MAX_WEAPONS; i++ ) {
