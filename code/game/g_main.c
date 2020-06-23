@@ -83,7 +83,7 @@ vmCvar_t	g_enableBreath;
 #endif
 
 //qlone
-vmCvar_t	g_ammolimit;
+vmCvar_t	g_removeammo;
 vmCvar_t	g_doReady;
 vmCvar_t	g_freezeTag;
 vmCvar_t	g_grapple;
@@ -105,7 +105,7 @@ vmCvar_t	g_startArmor;
 vmCvar_t	g_startHealth;
 vmCvar_t	g_tossWeapon;
 vmCvar_t	g_wpflags;
-vmCvar_t	g_weaponlimit;
+vmCvar_t	g_removeweapon;
 //qlone
 
 
@@ -199,7 +199,6 @@ static cvarTable_t gameCvarTable[] = {
 	{ &pmove_msec, "pmove_msec", "8", CVAR_SYSTEMINFO, 0, qfalse},
 
 //qlone
-	{ &g_ammolimit, "ammolimit", "0", 0, 0, qfalse },
 	{ &g_doReady, "g_doReady", "0", 0, 0, qfalse },
 	{ &g_freezeTag, "freezeTag", "0", CVAR_SERVERINFO | CVAR_ARCHIVE, 0, qfalse },
 	{ &g_grapple, "g_grapple", "0", 0, 0, qfalse },
@@ -220,8 +219,9 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_startArmor, "g_startArmor", "0", 0, 0, qfalse },
 	{ &g_startHealth, "g_startHealth", "0", 0, 0, qfalse },
 	{ &g_tossWeapon, "g_tossWeapon", "1", CVAR_ARCHIVE, 0, qtrue },
+	{ &g_removeammo, "removeammo", "0", 0, 0, qfalse },
+	{ &g_removeweapon, "removeweapon", "0", 0, 0, qfalse },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
-	{ &g_weaponlimit, "weaponlimit", "0", 0, 0, qfalse },
 //qlone
 
 	{ &g_rotation, "g_rotation", "", CVAR_ARCHIVE, 0, qfalse }

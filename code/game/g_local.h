@@ -785,8 +785,8 @@ void FT_ResetFlags( void );
 void G_ItemReplaced( gentity_t *ent );
 void G_RegisterWeapon( void );
 void G_SpawnWeapon( gclient_t *client );
-qboolean G_WeaponDisabled( gitem_t *item );
-qboolean G_AmmoDisabled( gitem_t *item );
+qboolean G_RemoveWeapon( gitem_t *item );
+qboolean G_RemoveAmmo( gitem_t *item );
 void G_SetInfiniteAmmo ( gclient_t *client );
 //qlone
 
@@ -852,7 +852,7 @@ extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
 //qlone
-extern	vmCvar_t	g_ammolimit;
+extern	vmCvar_t	g_removeammo;
 extern	vmCvar_t	g_doReady;
 extern	vmCvar_t	g_freezeTag;
 extern	vmCvar_t	g_grapple;
@@ -872,7 +872,7 @@ extern	vmCvar_t	g_startArmor;
 extern	vmCvar_t	g_startHealth;
 extern	vmCvar_t	g_tossWeapon;
 extern	vmCvar_t	g_wpflags;
-extern	vmCvar_t	g_weaponlimit;
+extern	vmCvar_t	g_removeweapon;
 //qlone
 
 void	trap_Print( const char *text );

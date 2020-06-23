@@ -60,7 +60,7 @@ static int getAmmoValue( const char *ammocvar ) {
 void G_SpawnWeapon ( gclient_t *client ) {
 	client->ps.ammo[ WP_MACHINEGUN ] = getAmmoValue ( "g_startAmmoMG" );
 
-	if ( g_weaponlimit.integer & 1 && !( g_wpflags.integer & 1 ) ) {
+	if ( g_removeweapon.integer & 1 && !( g_wpflags.integer & 1 ) ) {
 		client->ps.stats[ STAT_WEAPONS ] &= ~( 1 << WP_MACHINEGUN );
 		client->ps.ammo[ WP_MACHINEGUN ] = 0;
 	}
@@ -108,56 +108,40 @@ void G_SpawnWeapon ( gclient_t *client ) {
 #endif
 }
 
-qboolean G_WeaponDisabled ( gitem_t *item ) {
-	if ( ( g_weaponlimit.integer & 2 ) && ( !Q_stricmp( item->classname, "weapon_shotgun" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 4 ) && ( !Q_stricmp( item->classname, "weapon_grenadelauncher" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 8 ) && ( !Q_stricmp( item->classname, "weapon_rocketlauncher" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 16 ) && ( !Q_stricmp( item->classname, "weapon_lightning" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 32 ) && ( !Q_stricmp( item->classname, "weapon_railgun" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 64 ) && ( !Q_stricmp( item->classname, "weapon_plasmagun" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 128 ) && ( !Q_stricmp( item->classname, "weapon_bfg" ) ) )
-		return qtrue;
+qboolean G_RemoveWeapon ( gitem_t *item ) {
+	if ( ( ( g_removeweapon.integer & 1 ) && ( !Q_stricmp( item->classname, "weapon_machinegun" ) ) )
+		|| ( ( g_removeweapon.integer & 2 ) && ( !Q_stricmp( item->classname, "weapon_shotgun" ) ) )
+		|| ( ( g_removeweapon.integer & 4 ) && ( !Q_stricmp( item->classname, "weapon_grenadelauncher" ) ) )
+		|| ( ( g_removeweapon.integer & 8 ) && ( !Q_stricmp( item->classname, "weapon_rocketlauncher" ) ) )
+		|| ( ( g_removeweapon.integer & 16 ) && ( !Q_stricmp( item->classname, "weapon_lightning" ) ) )
+		|| ( ( g_removeweapon.integer & 32 ) && ( !Q_stricmp( item->classname, "weapon_railgun" ) ) )
+		|| ( ( g_removeweapon.integer & 64 ) && ( !Q_stricmp( item->classname, "weapon_plasmagun" ) ) )
+		|| ( ( g_removeweapon.integer & 128 ) && ( !Q_stricmp( item->classname, "weapon_bfg" ) ) ) )
+			return qtrue;
 #ifdef MISSIONPACK
-	if ( ( g_weaponlimit.integer & 256 ) && ( !Q_stricmp( item->classname, "weapon_nailgun" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 512 ) && ( !Q_stricmp( item->classname, "weapon_prox_launcher" ) ) )
-		return qtrue;
-	if ( ( g_weaponlimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "weapon_chaingun" ) ) )
-		return qtrue;
+	if ( ( ( g_removeweapon.integer & 256 ) && ( !Q_stricmp( item->classname, "weapon_nailgun" ) ) )
+		|| ( ( g_removeweapon.integer & 512 ) && ( !Q_stricmp( item->classname, "weapon_prox_launcher" ) ) )
+		|| ( ( g_removeweapon.integer & 1024 ) && ( !Q_stricmp( item->classname, "weapon_chaingun" ) ) ) )
+			return qtrue;
 #endif
 	return qfalse;
 }
 
-qboolean G_AmmoDisabled ( gitem_t *item ) {
-	if ( ( g_ammolimit.integer & 1 ) && ( !Q_stricmp( item->classname, "ammo_bullets" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 2 ) && ( !Q_stricmp( item->classname, "ammo_shells" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 4 ) && ( !Q_stricmp( item->classname, "ammo_grenades" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 8 ) && ( !Q_stricmp( item->classname, "ammo_rockets" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 16 ) && ( !Q_stricmp( item->classname, "ammo_lightning" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 32 ) && ( !Q_stricmp( item->classname, "ammo_slugs" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 64 ) && ( !Q_stricmp( item->classname, "ammo_cells" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 128 ) && ( !Q_stricmp( item->classname, "ammo_bfg" ) ) )
-		return qtrue;
+qboolean G_RemoveAmmo ( gitem_t *item ) {
+	if ( ( ( g_removeammo.integer & 1 ) && ( !Q_stricmp( item->classname, "ammo_bullets" ) ) )
+		|| ( ( g_removeammo.integer & 2 ) && ( !Q_stricmp( item->classname, "ammo_shells" ) ) )
+		|| ( ( g_removeammo.integer & 4 ) && ( !Q_stricmp( item->classname, "ammo_grenades" ) ) )
+		|| ( ( g_removeammo.integer & 8 ) && ( !Q_stricmp( item->classname, "ammo_rockets" ) ) )
+		|| ( ( g_removeammo.integer & 16 ) && ( !Q_stricmp( item->classname, "ammo_lightning" ) ) )
+		|| ( ( g_removeammo.integer & 32 ) && ( !Q_stricmp( item->classname, "ammo_slugs" ) ) )
+		|| ( ( g_removeammo.integer & 64 ) && ( !Q_stricmp( item->classname, "ammo_cells" ) ) )
+		|| ( ( g_removeammo.integer & 128 ) && ( !Q_stricmp( item->classname, "ammo_bfg" ) ) ) )
+			return qtrue;
 #ifdef MISSIONPACK
-	if ( ( g_ammolimit.integer & 256 ) && ( !Q_stricmp( item->classname, "ammo_nails" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 512 ) && ( !Q_stricmp( item->classname, "ammo_mines" ) ) )
-		return qtrue;
-	if ( ( g_ammolimit.integer & 1024 ) && ( !Q_stricmp( item->classname, "ammo_belt" ) ) )
-		return qtrue;
+	if ( ( ( g_removeammo.integer & 256 ) && ( !Q_stricmp( item->classname, "ammo_nails" ) ) )
+		|| ( ( g_removeammo.integer & 512 ) && ( !Q_stricmp( item->classname, "ammo_mines" ) ) )
+		|| ( ( g_removeammo.integer & 1024 ) && ( !Q_stricmp( item->classname, "ammo_belt" ) ) ) )
+			return qtrue;
 #endif
 	return qfalse;
 }

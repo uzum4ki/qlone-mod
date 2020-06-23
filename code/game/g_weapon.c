@@ -121,7 +121,7 @@ qboolean CheckGauntletAttack( gentity_t *ent ) {
 #endif
 
 //qlone - freezetag
-	if ( g_freezeTag.integer && g_dmflags.integer & 1024 && !( g_weaponlimit.integer & 2048 ) ) {
+	if ( g_freezeTag.integer && g_dmflags.integer & 1024 && !( g_removeweapon.integer & 2048 ) ) {
 		s_quadFactor = 8;
 	}
 

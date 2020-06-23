@@ -274,8 +274,8 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
 		if ( !strcmp(item->classname, ent->classname) ) {
 			if ( g_freezeTag.integer ) locationSpawn( ent, item ); //qlone - freezetag
-			if ( G_WeaponDisabled( item ) ) return qfalse; //qlone - custom weapons
-			if ( G_AmmoDisabled( item ) ) return qfalse; //qlone - custom weapons
+			if ( G_RemoveWeapon( item ) ) return qfalse; //qlone - custom weapons
+			if ( G_RemoveAmmo( item ) ) return qfalse; //qlone - custom weapons
 			if ( G_ItemDisabled( item ) ) return qfalse; //qlone - disabled items
 			G_SpawnItem( ent, item );
 			return qtrue;
