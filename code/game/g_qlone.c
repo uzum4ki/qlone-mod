@@ -16,40 +16,33 @@ void G_ItemReplaced ( gentity_t *ent ) {
 
 void G_RegisterWeapon ( void ) {
 	if ( g_wpflags.integer & 2 ) {
-		RegisterItem( BG_FindItemForWeapon( WP_SHOTGUN ) );
+		// the machinegun might already be registered
+		gitem_t *item;
+		item = BG_FindItemForWeapon( WP_SHOTGUN );
+		if ( !Registered( item ) ) RegisterItem( item );
 	}
-	if ( g_wpflags.integer & 4 ) {
+	if ( g_wpflags.integer & 4 )
 		RegisterItem( BG_FindItemForWeapon( WP_GRENADE_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 8 ) {
+	if ( g_wpflags.integer & 8 )
 		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 16 ) {
+	if ( g_wpflags.integer & 16 )
 		RegisterItem( BG_FindItemForWeapon( WP_LIGHTNING ) );
-	}
-	if ( g_wpflags.integer & 32 ) {
+	if ( g_wpflags.integer & 32 )
 		RegisterItem( BG_FindItemForWeapon( WP_RAILGUN ) );
-	}
-	if ( g_wpflags.integer & 64 ) {
+	if ( g_wpflags.integer & 64 )
 		RegisterItem( BG_FindItemForWeapon( WP_PLASMAGUN ) );
-	}
-	if ( g_wpflags.integer & 128 ) {
+	if ( g_wpflags.integer & 128 )
 		RegisterItem( BG_FindItemForWeapon( WP_BFG ) );
-	}
 #ifdef MISSIONPACK
-	if ( g_wpflags.integer & 256 ) {
+	if ( g_wpflags.integer & 256 )
 		RegisterItem( BG_FindItemForWeapon( WP_NAILGUN ) );
-	}
-	if ( g_wpflags.integer & 512 ) {
+	if ( g_wpflags.integer & 512 )
 		RegisterItem( BG_FindItemForWeapon( WP_PROX_LAUNCHER ) );
-	}
-	if ( g_wpflags.integer & 1024 ) {
+	if ( g_wpflags.integer & 1024 )
 		RegisterItem( BG_FindItemForWeapon( WP_CHAINGUN ) );
-	}
 #endif
-	if ( g_grapple.integer > 0 ) {
+	if ( g_grapple.integer > 0 )
 		RegisterItem( BG_FindItemForWeapon( WP_GRAPPLING_HOOK ) );
-	}
 }
 
 // Return the quantity of configured ammo for a weapon
