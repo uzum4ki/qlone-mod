@@ -785,8 +785,9 @@ void FT_ResetFlags( void );
 void G_ItemReplaced( gentity_t *ent );
 void G_RegisterWeapon( void );
 void G_SpawnWeapon( gclient_t *client );
-qboolean G_RemoveWeapon( gitem_t *item );
 qboolean G_RemoveAmmo( gitem_t *item );
+qboolean G_RemoveItem( gitem_t *item );
+qboolean G_RemoveWeapon( gitem_t *item );
 void G_SetInfiniteAmmo ( gclient_t *client );
 //qlone
 
