@@ -106,6 +106,7 @@ vmCvar_t	g_tossWeapon;
 vmCvar_t	g_wpflags;
 vmCvar_t	g_removeammo;
 vmCvar_t	g_removeitem;
+vmCvar_t	g_removepowerup;
 vmCvar_t	g_removeweapon;
 //qlone
 
@@ -222,6 +223,7 @@ static cvarTable_t gameCvarTable[] = {
 	{ &g_tossWeapon, "g_tossWeapon", "1", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_removeammo, "removeammo", "0", 0, 0, qfalse },
 	{ &g_removeitem, "removeitem", "0", 0, 0, qfalse },
+	{ &g_removepowerup, "removepowerup", "0", 0, 0, qfalse },
 	{ &g_removeweapon, "removeweapon", "0", 0, 0, qfalse },
 	{ &g_wpflags, "wpflags", "0", 0, 0, qfalse },
 //qlone

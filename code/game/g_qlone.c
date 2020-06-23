@@ -157,6 +157,30 @@ qboolean G_RemoveItem ( gitem_t *item ) {
 		|| ( ( g_removeitem.integer & 128 ) && ( !Q_stricmp( item->classname, "holdable_teleporter" ) ) )
 		|| ( ( g_removeitem.integer & 256 ) && ( !Q_stricmp( item->classname, "holdable_medkit" ) ) ) )
 			return qtrue;
+#ifdef MISSIONPACK
+	if ( ( ( g_removeitem.integer & 512 ) && ( !Q_stricmp( item->classname, "holdable_kamikaze" ) ) )
+		|| ( ( g_removeitem.integer & 1024 ) && ( !Q_stricmp( item->classname, "holdable_portal" ) ) )
+		|| ( ( g_removeitem.integer & 2048 ) && ( !Q_stricmp( item->classname, "holdable_invulnerability" ) ) ) )
+			return qtrue;
+#endif
+	return qfalse;
+}
+
+qboolean G_RemovePowerup ( gitem_t *item ) {
+	if ( ( ( g_removepowerup.integer & 1 ) && ( !Q_stricmp( item->classname, "item_quad" ) ) )
+		|| ( ( g_removepowerup.integer & 2 ) && ( !Q_stricmp( item->classname, "item_enviro" ) ) )
+		|| ( ( g_removepowerup.integer & 4 ) && ( !Q_stricmp( item->classname, "item_haste" ) ) )
+		|| ( ( g_removepowerup.integer & 8 ) && ( !Q_stricmp( item->classname, "item_invis" ) ) )
+		|| ( ( g_removepowerup.integer & 16 ) && ( !Q_stricmp( item->classname, "item_regen" ) ) )
+		|| ( ( g_removepowerup.integer & 32 ) && ( !Q_stricmp( item->classname, "item_flight" ) ) ) )
+			return qtrue;
+#ifdef MISSIONPACK
+	if ( ( ( g_removepowerup.integer & 64 ) && ( !Q_stricmp( item->classname, "item_scout" ) ) )
+		|| ( ( g_removepowerup.integer & 128 ) && ( !Q_stricmp( item->classname, "item_guard" ) ) )
+		|| ( ( g_removepowerup.integer & 256 ) && ( !Q_stricmp( item->classname, "item_doubler" ) ) )
+		|| ( ( g_removepowerup.integer & 512 ) && ( !Q_stricmp( item->classname, "item_ammoregen" ) ) ) )
+			return qtrue;
+#endif
 	return qfalse;
 }
 

@@ -249,7 +249,6 @@ spawn_t	spawns[] = {
 	{0, 0}
 };
 
-int G_ItemDisabled( gitem_t *item ); //qlone - prototype needeed to use it in G_CallSpawn
 
 /*
 ===============
@@ -277,7 +276,7 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 			if ( G_RemoveWeapon( item ) ) return qfalse; //qlone - custom items
 			if ( G_RemoveAmmo( item ) ) return qfalse; //qlone - custom items
 			if ( G_RemoveItem( item ) ) return qfalse; //qlone - custom items
-			if ( G_ItemDisabled( item ) ) return qfalse; //qlone - disabled items
+			if ( G_RemovePowerup( item ) ) return qfalse; //qlone - custom items
 			G_SpawnItem( ent, item );
 			return qtrue;
 		}
