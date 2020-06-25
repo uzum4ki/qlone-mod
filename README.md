@@ -11,6 +11,7 @@ Qlone adds some nifty stuff like the FreezeTag gameplay, based on the Quake 3 [F
 
 * freezeTag <0|1> : default to 0. Toggle the Freeze Tag gameplay
 * g_noSelfDamage <0|1> : default to 0. Toggle the player self damages
+* g_specLock <0|1> : default to 0. When enabled, a team member can only spec teammates
 * g_startAmmo*X* <0|200> : allow to define the amount of ammunitions for a weapon. *X* can be MG, SG, GL, RL, LG, RG, PG, BFG, NG, PL, CG
 * g_startArmor <0|200> : allow to define the amount of armor at spawn
 * g_startHealth <0|200> : allow to define the amount of health at spawn
@@ -20,7 +21,7 @@ Qlone adds some nifty stuff like the FreezeTag gameplay, based on the Quake 3 [F
 
 The following cvars use a "flag" value which acts as a combination of integers to specify a group of items:
 
-* wpflags <VAL> : what weapons a player should have at spawn.
+* wpflags "VAL" : what weapons a player should have at spawn.
   
 The corresponding values are:
 
@@ -38,11 +39,11 @@ The corresponding values are:
 
 So, in order to let a player starts with a shotgun, a grenade launcher and a rocket launcher you can use "wpflags 14" (for 14 is 2+4+8). Note that players always start with the machinegun and the gauntlet.
 
-The **remove<X>** cvars allow to choose to remove items from a map, **<X>** is either **ammo**, **item**, **powerup** or **weapon**:
+The **removeX** cvars allow to choose to remove items from a map, **X** is either **ammo**, **item**, **powerup** or **weapon**:
 
-* removeammo <VAL> use the same numbers as wpflags but for the corresponding ammunition
-* removeeapon <VAL> use the same numbers as wpflags
-* removeitem <VAL>, where VAL can used the following values:
+* removeammo "VAL" use the same numbers as wpflags but for the corresponding ammunition
+* removeeapon "VAL" use the same numbers as wpflags
+* removeitem "VAL", where VAL can used the following values:
   * item_armor_shard 1
   * item_armor_combat 2
   * item_armor_body 4
@@ -52,7 +53,7 @@ The **remove<X>** cvars allow to choose to remove items from a map, **<X>** is e
   * item_health_mega 64
   * holdable_teleporter 128
   * holdable_medkit 256
- * removepowerup <VAL>, where VAL can used the following values:
+ * removepowerup "VAL", where VAL can used the following values:
   * item_quad 1
   * item_enviro 2
   * item_haste 4
