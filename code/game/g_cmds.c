@@ -925,6 +925,14 @@ void Cmd_FollowCycle_f( gentity_t *ent, int dir ) {
 		}
 //qlone - freezetag
 
+		//qlone - limit spectator to teammates
+		if (g_specLock.integer
+			&& ( (ent->client->sess.sessionTeam == TEAM_RED && level.clients[ clientnum ].sess.sessionTeam == TEAM_BLUE)
+			|| (ent->client->sess.sessionTeam == TEAM_BLUE && level.clients[ clientnum ].sess.sessionTeam == TEAM_RED) ) ) {
+				continue;
+		}
+		//qlone - limit spectator to teammates
+
 		// this is good, we can use it
 		ent->client->sess.spectatorClient = clientnum;
 		ent->client->sess.spectatorState = SPECTATOR_FOLLOW;
