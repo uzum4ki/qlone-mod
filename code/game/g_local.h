@@ -773,7 +773,6 @@ qboolean readyCheck( void );
 void team_wins( int team );
 void CheckDelay( void );
 void locationSpawn( gentity_t *ent, gitem_t *item );
-void Hook_Fire( gentity_t *ent );
 void Cmd_Drop_f( gentity_t *ent );
 void Cmd_Ready_f( gentity_t *ent );
 void FT_ResetFlags( void );
@@ -790,6 +789,7 @@ qboolean G_RemoveItem( gitem_t *item );
 qboolean G_RemovePowerup( gitem_t *item );
 qboolean G_RemoveWeapon( gitem_t *item );
 void G_SetInfiniteAmmo ( gclient_t *client );
+void Hook_Fire( gentity_t *ent );
 //qlone
 
 

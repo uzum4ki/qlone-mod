@@ -612,13 +612,12 @@ GRAPPLING HOOK
 
 void Weapon_GrapplingHook_Fire (gentity_t *ent)
 {
-//qlone - freezetag
-	if ( g_freezeTag.integer ) {
-		AngleVectors( ent->client->ps.viewangles, forward, right, up );
-		//uzu//CalcMuzzlePoint( ent, forward, right, up, muzzle );
-		CalcMuzzlePointOrigin( ent, muzzle_origin, forward, right, up, muzzle );
-	}
-//qlone - freezetag
+//qlone - grapple hook
+	AngleVectors( ent->client->ps.viewangles, forward, right, up );
+	//uzu//CalcMuzzlePoint( ent, forward, right, up, muzzle );
+	CalcMuzzlePointOrigin( ent, muzzle_origin, forward, right, up, muzzle );
+//qlone - grapple hook
+
 	if (!ent->client->fireHeld && !ent->client->hook)
 		fire_grapple (ent, muzzle, forward);
 
@@ -628,9 +627,9 @@ void Weapon_GrapplingHook_Fire (gentity_t *ent)
 
 void Weapon_HookFree (gentity_t *ent)
 {
-//qlone - freezetag
-	if ( g_freezeTag.integer ) ent->parent->timestamp = level.time;
-//qlone - freezetag
+//qlone - grapple hook
+	ent->parent->timestamp = level.time;
+//qlone - grapple hook
 	ent->parent->client->hook = NULL;
 	ent->parent->client->ps.pm_flags &= ~PMF_GRAPPLE_PULL;
 	G_FreeEntity( ent );

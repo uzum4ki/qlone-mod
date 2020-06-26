@@ -877,37 +877,6 @@ void locationSpawn( gentity_t *ent, gitem_t *item ) {
 	SP_target_location( e );
 }
 
-void Weapon_GrapplingHook_Fire(	gentity_t *ent );
-
-void Hook_Fire( gentity_t *ent ) {
-	gclient_t	*client;
-	usercmd_t	*ucmd;
-
-	if ( g_grapple.integer < 1 ) {
-		return;
-	}
-
-	client = ent->client;
-	if ( client->ps.weapon == WP_GRAPPLING_HOOK ) {
-		return;
-	}
-	if ( client->ps.pm_type != PM_NORMAL ) {
-		return;
-	}
-
-	ucmd = &client->pers.cmd;
-	if ( client->hook && !( ucmd->buttons & 32 ) ) {
-		Weapon_HookFree( client->hook );
-	}
-	if ( !client->hook && ( ucmd->buttons & 32 ) ) {
-		if ( ent->timestamp > level.time - 400 ) {
-			return;
-		}
-		client->fireHeld = qfalse;
-		Weapon_GrapplingHook_Fire( ent );
-	}
-}
-
 char *ConcatArgs( int start );
 
 void Cmd_Drop_f( gentity_t *ent ) {
